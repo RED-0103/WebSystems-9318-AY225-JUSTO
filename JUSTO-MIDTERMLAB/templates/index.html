@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA Games Scraper</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: #fff; }
+        
+        header {
+            background: #e3000f;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 { font-size: 2rem; }
+        header p { font-size: 0.9rem; opacity: 0.8; }
+
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+        }
+        .search-bar button, .scrape-btn {
+            padding: 10px 20px;
+            background: #e3000f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .scrape-btn { background: #16213e; border: 1px solid #e3000f; margin-bottom: 20px; }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .game-card {
+            background: #16213e;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #e3000f33;
+        }
+        .game-card h3 { color: #e3000f; margin-bottom: 10px; }
+        .game-card p { font-size: 0.85rem; margin-bottom: 5px; opacity: 0.85; }
+        .game-card span { color: #aaa; }
+
+        .no-games { text-align: center; padding: 50px; opacity: 0.6; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: #16213e;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎮 EA Games Scraper</h1>
+    <p>Electronic Arts Game Library</p>
+</header>
+
+<div class="container">
+    <form action="/" method="get">
+        <div class="search-bar">
+            <input type="text" name="search" placeholder="Search games..." value="{{ search }}">
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <a href="/scrape"><button class="scrape-btn">🔄 Scrape Games</button></a>
+
+    {% if games %}
+    <div class="games-grid">
+        {% for game in games %}
+        <div class="game-card">
+            <h3>{{ game.title }}</h3>
+            <p><span>📅 Release Date:</span> {{ game.release_date }}</p>
+            <p><span>🎯 Key Features:</span> {{ game.key_features }}</p>
+            <p><span>🖥️ Platforms:</span> {{ game.platforms }}</p>
+            <p><span>👨‍💻 Developer:</span> {{ game.developer }}</p>
+            <p><span>🏢 Publisher:</span> {{ game.publisher }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-games">
+        <p>No games found. Click "Scrape Games" to start!</p>
+    </div>
+    {% endif %}
+</div>
+
+<footer>
+    <p>EA Games Scraper | WebSystems 9318 | JUSTO</p>
+</footer>
+
+</body>
+</html>
